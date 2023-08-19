@@ -1,88 +1,109 @@
-#include <stdio.h>
-#include <stdlib.h>
+// Reverse a Linked List using a Explicit Stack
 
-struct Node {
+#include<stdio.h>
+#include<stdlib.h>
+#include<stdbool.h>
+
+#define MaxSize 10
+
+typedef struct Node
+{
     int data;
-    struct Node* next;
-};
+    struct Node *next;
+}ND;
 
-// Function to push a node onto the stack
-void push(struct Node** stackTop, struct Node* newNode) {
-    newNode->next = *stackTop;
-    *stackTop = newNode;
+typedef struct 
+{
+    ND* A[MaxSize];
+    int top;
+}Stack;
+
+void initializeStack(Stack *S)
+{
+    S->top = -1;
 }
 
-// Function to pop a node from the stack
-struct Node* pop(struct Node** stackTop) {
-    if (*stackTop == NULL) {
-        return NULL; // Stack is empty
-    }
-    struct Node* poppedNode = *stackTop;
-    *stackTop = (*stackTop)->next;
-    return poppedNode;
+bool IsEmpty(Stack S)
+{
+    return (S.top == -1);
 }
 
-// Function to reverse a linked list using a stack
-void reverseLinkedList(struct Node** head) {
-    if (*head == NULL) {
-        return; // Empty list
-    }
-
-    struct Node* stackTop = NULL;
-    struct Node* current = *head;
-
-    while (current != NULL) {
-        struct Node* nextNode = current->next;
-        push(&stackTop, current);
-        current = nextNode;
-    }
-
-    *head = NULL;
-    while (stackTop != NULL) {
-        struct Node* poppedNode = pop(&stackTop);
-        if (*head == NULL) {
-            *head = poppedNode;
-            current = *head;
-        } else {
-            current->next = poppedNode;
-            current = current->next;
-        }
-    }
-    current->next = NULL;
+bool IsFull(Stack S)
+{
+    return (S.top == MaxSize-1);
 }
 
-// Function to print the linked list
-void printList(struct Node* head) {
-    while (head != NULL) {
-        printf("%d ", head->data);
-        head = head->next;
+void Push(Stack *S,ND *temp)
+{
+    if(IsFull(*S))
+    {
+        printf("Stack Overflow\n");
+        return;
+    }
+    S->A[++(S->top)] = temp;
+}
+
+void Pop(Stack *S)
+{
+    if(IsEmpty(*S))
+    {
+        printf("Stack Underflow\n");
+        return;
+    }
+    --(S->top);
+}
+
+ND *Top(Stack *S)
+{
+    return S->A[S->top];
+}
+
+ND *Reverse(ND **head)
+{
+    if(*head == NULL) return *head;
+
+    Stack S;
+    initializeStack(&S);
+    ND *temp = *head;
+    while(temp != NULL)
+    {
+        Push(&S,temp);
+        temp = temp->next;
+    }
+    *head = Top(&S);
+    temp = *head;
+    Pop(&S);
+    while(!IsEmpty(S))
+    {
+        temp->next = Top(&S);
+        Pop(&S);
+        temp = temp->next;
+    }
+    temp->next = NULL;
+    return *head;
+}
+
+void Print(ND *head)
+{
+    ND *temp = head;
+    while (temp != NULL)
+    {
+        printf("%d ",temp->data);
+        temp = temp->next;
     }
     printf("\n");
 }
 
-int main() {
-    struct Node* head = NULL;
-    for (int i = 1; i <= 5; ++i) {
-        struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+void main() 
+{
+    ND* head = NULL;
+    for (int i = 1; i <= 5; i++) {
+        ND* newNode = (ND*)malloc(sizeof(ND));
         newNode->data = i;
         newNode->next = head;
         head = newNode;
     }
-
-    printf("Original linked list: ");
-    printList(head);
-
-    reverseLinkedList(&head);
-
-    printf("Reversed linked list: ");
-    printList(head);
-
-    // Free allocated memory
-    while (head != NULL) {
-        struct Node* temp = head;
-        head = head->next;
-        free(temp);
-    }
-
-    return 0;
+    Print(head);
+    head = Reverse(&head);
+    Print(head);
 }
