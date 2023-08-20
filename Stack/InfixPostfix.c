@@ -10,7 +10,7 @@
 #include<stdbool.h>
 #include<string.h>
 
-#define MaxSize 50
+#define MaxSize 10
 
 typedef struct 
 {
@@ -160,21 +160,29 @@ void Convert(char *str,int lenght,char * op)
 
 int main()
 {
-    // char str[15] ;
-    // scanf("%s",str);
+    printf("Enter str1 : ");
+    char str1[25] ;
+    scanf("%[^\n]s",str1);
 
+    char c;
+    while (((c=getchar()) != '\n') && (c != EOF));
+
+    printf("Enter str2 : ");
     // Use dynamic memory allocation for the input string
-    char *str = NULL;
+    char *str2 = NULL;
     size_t size = 0;
-    getline(&str, &size, stdin);
+    getline(&str2, &size, stdin);
 
-    char Output[strlen(str)];
-    Convert(str,strlen(str),Output);
+    char Output1[strlen(str1)];
+    Convert(str1,strlen(str1),Output1);
+    printf("%s\n",Output1);
 
-    printf("%s",Output);
+    char Output2[strlen(str2)];
+    Convert(str2,strlen(str2),Output2);
+    printf("%s\n",Output2);
 
-    // Free the dynamically allocated memory
-    //free(str);
+    //Free the dynamically allocated memory
+    free(str2);
 
     return 0;
 }

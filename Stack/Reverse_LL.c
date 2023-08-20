@@ -1,4 +1,5 @@
 // Reverse a Linked List using a Explicit Stack
+// Usind ND **head is used in Reverse function as argument and ND *head method is commented out
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -58,9 +59,9 @@ ND *Top(Stack *S)
     return S->A[S->top];
 }
 
-ND *Reverse(ND **head)
+void Reverse(ND **head)
 {
-    if(*head == NULL) return *head;
+    if(*head == NULL) return;
 
     Stack S;
     initializeStack(&S);
@@ -80,8 +81,32 @@ ND *Reverse(ND **head)
         temp = temp->next;
     }
     temp->next = NULL;
-    return *head;
 }
+
+// ND *Reverse(ND *head)
+// {
+//     if(head == NULL) return head;
+
+//     Stack S;
+//     initializeStack(&S);
+//     ND *temp = head;
+//     while(temp != NULL)
+//     {
+//         Push(&S,temp);
+//         temp = temp->next;
+//     }
+//     head = Top(&S);
+//     temp = head;
+//     Pop(&S);
+//     while(!IsEmpty(S))
+//     {
+//         temp->next = Top(&S);
+//         Pop(&S);
+//         temp = temp->next;
+//     }
+//     temp->next = NULL;
+//     return head;
+// }
 
 void Print(ND *head)
 {
@@ -104,6 +129,7 @@ void main()
         head = newNode;
     }
     Print(head);
-    head = Reverse(&head);
+    Reverse(&head);
+    // head = Reverese(head);
     Print(head);
 }
