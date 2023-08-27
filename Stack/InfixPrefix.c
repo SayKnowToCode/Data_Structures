@@ -37,7 +37,7 @@ bool IsFull(Stack S)
     return false;
 }
 
-void Push(Stack *S, int data)
+void Push(Stack *S, char data)
 {
     if(IsFull(*S))
     {
