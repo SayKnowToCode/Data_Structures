@@ -1,3 +1,5 @@
+// Stack stored in heap to convert infix to prefix
+
 #include<stdio.h>
 #include<string.h>
 #include<stdbool.h>
@@ -14,7 +16,8 @@ Stack *createStack(unsigned size)
 {
     Stack *S = (Stack *)malloc(sizeof(Stack));
     S->top = -1;
-    S->A = (char *)malloc(size * sizeof(char));
+    S->size = size;
+    S->A = (char *)malloc(S->size * sizeof(char));
     return S;
 }
 

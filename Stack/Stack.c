@@ -3,6 +3,7 @@
 #include<stdio.h>
 #include<stdbool.h>
 #include<stdlib.h>
+#include<string.h>
 
 typedef struct 
 {
@@ -15,7 +16,8 @@ Stack *createStack(unsigned size)
 {
     Stack *S = (Stack*)malloc(sizeof(Stack));
     S->top = -1;
-    S->A = (int *)malloc(size * sizeof(int));
+    S->size = size;
+    S->A = (int *)malloc(S->size * sizeof(int));
     return S;
 }
 

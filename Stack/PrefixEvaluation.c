@@ -107,8 +107,8 @@ int Evaluate(char *str)
 
         else if(isOperator(str[i]))
         {
-            int op2 = Top(S); Pop(S);
             int op1 = Top(S); Pop(S);
+            int op2 = Top(S); Pop(S);
             Push(S,performCalc(op1,str[i],op2));
             i++;
         }
