@@ -65,5 +65,5 @@ void main()
     root = Insert(root,11);
     root = Insert(root,14);
 
-    printf("Height of binary tree = %d",FindHeight(root));
+    printf("Height of binary tree = %d",FindHeight(root->left->left));
 }
