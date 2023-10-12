@@ -1,17 +1,17 @@
 // Implementing a Circular Queue
 
-#include<stdio.h>
-#include<stdbool.h>
-#include<stdlib.h>
-#include<string.h>
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
 
-typedef struct 
+typedef struct
 {
     int front;
     int rear;
     unsigned size;
     int *A;
-}Queue;
+} Queue;
 
 Queue *createQ(unsigned size)
 {
@@ -24,13 +24,15 @@ Queue *createQ(unsigned size)
 
 bool isEmpty(Queue *Q)
 {
-    if(Q->front == -1) return true;
+    if (Q->front == -1)
+        return true;
     return false;
 }
 
 bool isFull(Queue *Q)
 {
-    if((Q->rear - Q->front) == (Q->size - 1)) return true;
+    if ((Q->rear - Q->front) == (Q->size - 1))
+        return true;
     return false;
 }
 
@@ -41,12 +43,12 @@ void DeQ(Queue *Q)
         printf("Queue empty\n");
         return;
     }
-    if(Q->front == Q->rear)
+    if (Q->front == Q->rear)
     {
         Q->front = Q->rear = -1;
         return;
     }
-    
+
     ((++(Q->front)) % Q->size);
 }
 
@@ -60,14 +62,14 @@ void Print(Queue *Q)
     int i = Q->front;
     for (; i <= Q->rear; i++)
     {
-        printf("%d ",Q->A[(i)%(Q->size)]);
+        printf("%d ", Q->A[(i) % (Q->size)]);
     }
     printf("\n");
 }
 
-void EnQ(Queue *Q,int data)
+void EnQ(Queue *Q, int data)
 {
-    if(isFull(Q))
+    if (isFull(Q))
     {
         printf("Queue is full");
         return;
@@ -83,7 +85,7 @@ void EnQ(Queue *Q,int data)
         // i=0;
         // while (!isEmpty(LQ))
         // {
-        //     Q->A[i] = Peek(LQ); 
+        //     Q->A[i] = Peek(LQ);
         //     DeQ(LQ);
         //     i++;
         // }
@@ -96,14 +98,14 @@ void EnQ(Queue *Q,int data)
         Q->front = 0;
     }
 
-    Q->A[++(Q->rear) % Q->size] = data;   
+    Q->A[++(Q->rear) % Q->size] = data;
 }
 
 void PrintArray(Queue *Q)
 {
     for (int i = 0; i < Q->size; i++)
     {
-        printf("%d ",Q->A[i]);
+        printf("%d ", Q->A[i]);
     }
     printf("\n");
 }
@@ -111,20 +113,34 @@ void PrintArray(Queue *Q)
 int main()
 {
     Queue *Q = createQ(5);
-    EnQ(Q,1); Print(Q);
-    EnQ(Q,2); Print(Q);
-    EnQ(Q,3); Print(Q);
-    DeQ(Q); Print(Q);
-    DeQ(Q); Print(Q);
-    EnQ(Q,4); Print(Q); 
-    EnQ(Q,5); Print(Q);
-    DeQ(Q); Print(Q);
-    EnQ(Q,6); Print(Q);
-    EnQ(Q,6); Print(Q);
-    EnQ(Q,6); Print(Q);
-    EnQ(Q,6); Print(Q);
-    DeQ(Q); Print(Q);
-    EnQ(Q,6); Print(Q);
+    EnQ(Q, 1);
+    Print(Q);
+    EnQ(Q, 2);
+    Print(Q);
+    EnQ(Q, 3);
+    Print(Q);
+    DeQ(Q);
+    Print(Q);
+    DeQ(Q);
+    Print(Q);
+    EnQ(Q, 4);
+    Print(Q);
+    EnQ(Q, 5);
+    Print(Q);
+    DeQ(Q);
+    Print(Q);
+    EnQ(Q, 6);
+    Print(Q);
+    EnQ(Q, 6);
+    Print(Q);
+    EnQ(Q, 6);
+    Print(Q);
+    EnQ(Q, 6);
+    Print(Q);
+    DeQ(Q);
+    Print(Q);
+    EnQ(Q, 6);
+    Print(Q);
 
     return 0;
 }

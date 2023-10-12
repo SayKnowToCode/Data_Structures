@@ -1,20 +1,20 @@
-// Doubly Linked List and some functions related to it 
+// Doubly Linked List and some functions related to it
 
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-typedef struct Node 
+typedef struct Node
 {
     int data;
-    struct Node * next;
-    struct Node * prev;
-}ND;
+    struct Node *next;
+    struct Node *prev;
+} ND;
 
-ND* head = NULL;
+ND *head = NULL;
 
-ND* GetNewNode(int data)
+ND *GetNewNode(int data)
 {
-    ND* temp = (ND*)malloc(sizeof(ND));
+    ND *temp = (ND *)malloc(sizeof(ND));
     temp->data = data;
     temp->next = NULL;
     temp->prev = NULL;
@@ -23,8 +23,8 @@ ND* GetNewNode(int data)
 
 void InsertAtHead(int data)
 {
-    ND* temp = GetNewNode(data);
-    if(head == NULL)
+    ND *temp = GetNewNode(data);
+    if (head == NULL)
     {
         head = temp;
         return;
@@ -36,38 +36,38 @@ void InsertAtHead(int data)
 
 void InsertAtTail(int data)
 {
-    if(head == NULL)
+    if (head == NULL)
     {
         head = GetNewNode(data);
         return;
     }
 
-    ND* temp = head;
+    ND *temp = head;
     while (temp->next != NULL)
     {
         temp = temp->next;
     }
 
-    ND *temp2= GetNewNode(data);
+    ND *temp2 = GetNewNode(data);
     temp2->prev = temp;
     temp->next = temp2;
 }
 
-void InsertAtPosition(int pos,int data)
+void InsertAtPosition(int pos, int data)
 {
-    if(pos==1)
+    if (pos == 1)
     {
         InsertAtHead(data);
         return;
     }
 
     ND *temp = head;
-    for(int i=1;i<pos-1;i++)
+    for (int i = 1; i < pos - 1; i++)
     {
         temp = temp->next;
     }
 
-    if(temp->next == NULL)
+    if (temp->next == NULL)
         InsertAtTail(data);
     else
     {
@@ -81,7 +81,7 @@ void InsertAtPosition(int pos,int data)
 
 void DeleteAtHead()
 {
-    if(head == NULL)
+    if (head == NULL)
     {
         printf("Empty List");
         return;
@@ -93,7 +93,7 @@ void DeleteAtHead()
 
 void DeleteAtTail()
 {
-    if(head == NULL)
+    if (head == NULL)
     {
         printf("Empty List");
         return;
@@ -110,39 +110,37 @@ void DeleteAtTail()
 
 void DeleteAtPosition(int pos)
 {
-    if(pos == 1)
+    if (pos == 1)
     {
         DeleteAtHead();
         return;
     }
 
     ND *temp = head;
-    for (int i = 1; i < pos-1; i++)
+    for (int i = 1; i < pos - 1; i++)
     {
         temp = temp->next;
     }
-    
-    if(temp->next->next == NULL)
+
+    if (temp->next->next == NULL)
     {
         DeleteAtTail();
     }
-    
+
     else
     {
         temp->next = temp->next->next;
         free(temp->next->prev);
         temp->next->prev = temp;
     }
-    
-    
 }
 
 void Print()
 {
     ND *temp = head;
-    while(temp != NULL)
+    while (temp != NULL)
     {
-        printf("%d ",temp->data);
+        printf("%d ", temp->data);
         temp = temp->next;
     }
     printf("\n");
@@ -150,11 +148,14 @@ void Print()
 
 void ReversePrint()
 {
-    ND* temp = head;
-    while(temp->next != NULL){temp = temp->next;}
-    while(temp != NULL)
+    ND *temp = head;
+    while (temp->next != NULL)
     {
-        printf("%d ",temp->data);
+        temp = temp->next;
+    }
+    while (temp != NULL)
+    {
+        printf("%d ", temp->data);
         temp = temp->prev;
     }
 }
@@ -171,8 +172,8 @@ void main()
     Print();
     DeleteAtTail();
     Print();
-    InsertAtPosition(4,6);
-    InsertAtPosition(3,7);
+    InsertAtPosition(4, 6);
+    InsertAtPosition(3, 7);
     Print();
     DeleteAtPosition(5);
     Print();
