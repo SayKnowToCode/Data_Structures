@@ -207,7 +207,7 @@ int Evaluate(char *str)
 Node *Prefix(char *str)
 {
     int i = 0;
-    while (i != '\n')
+    while (str[i] != '\n')
     {
         i++;
     }

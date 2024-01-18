@@ -72,7 +72,7 @@ void Search(Hash *H, int key)
                 return;
             }
             i = ++i % H->m;
-            if(i == index) 
+            if (i == index)
             {
                 printf("Element not found\n");
                 return;
@@ -103,7 +103,7 @@ void main()
     Insert(H, 101);
     Print(H);
 
-    Search(H,34);
-    Search(H,36);
-    Search(H,18);
+    Search(H, 34);
+    Search(H, 36);
+    Search(H, 18);
 }

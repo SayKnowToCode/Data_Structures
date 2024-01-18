@@ -179,6 +179,7 @@ void BFS(node **List, int n, char Info[n][3])
     printf("Enter start Node : ");
     char ch;
     scanf("%c", &ch);
+    getchar();
 
     if (IndexingFunction(ch) > n - 1)
     {
@@ -187,7 +188,6 @@ void BFS(node **List, int n, char Info[n][3])
     }
 
     start = ch;
-    getchar();
 
     do
     {
@@ -211,10 +211,13 @@ void BFS(node **List, int n, char Info[n][3])
 
         printf("%c ", ch);
         DeQ(Q);
+
         if (isEmpty(Q))
             break;
         ch = Peek(Q);
-    } while (true);
+    }
+
+    while (true);
     printf("\n");
 }
 

@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
-#include <string.h>
 
 typedef struct
 {
@@ -16,13 +15,13 @@ Queue *createQ(unsigned size)
     Queue *Q = (Queue *)malloc(sizeof(Queue));
     Q->front = Q->rear = -1;
     Q->size = size;
-    Q->A = (int *)malloc(sizeof(int) * Q->size);
+    Q->A = (int *)malloc(Q->size * sizeof(int));
     return Q;
 }
 
 bool isFull(Queue *Q)
 {
-    if ((Q->rear - Q->front) == (Q->size - 1))
+    if (Q->rear == Q->size - 1)
         return true;
     return false;
 }
@@ -38,7 +37,7 @@ void EnQ(Queue *Q, int data)
 {
     if (isFull(Q))
     {
-        printf("Q is full \n");
+        printf("Queue full\n");
         return;
     }
     else if (isEmpty(Q))
@@ -46,19 +45,20 @@ void EnQ(Queue *Q, int data)
         Q->front = 0;
     }
 
-    Q->A[(++Q->rear) % Q->size] = data;
+    Q->A[++(Q->rear)] = data;
 }
 
 void DeQ(Queue *Q)
 {
+    // int temp;
     if (isEmpty(Q))
     {
-        printf("Q is empty \n");
+        printf("Queue Empty\n");
         return;
     }
-
     else if (Q->front == Q->rear)
     {
+        // int temp = Q->A[Q->front];
         Q->front = Q->rear = -1;
         return;
     }
@@ -66,57 +66,38 @@ void DeQ(Queue *Q)
     ++(Q->front);
 }
 
-int front(Queue *Q)
+int Peek(Queue *Q)
 {
-    return Q->A[Q->front % Q->size];
-}
-
-int rear(Queue *Q)
-{
-    return Q->A[Q->rear % Q->size];
+    return Q->A[Q->front];
 }
 
 void PrintQ(Queue *Q)
 {
-    if (isEmpty(Q))
-    {
-        printf("Q is empty, cannot prnt it \n");
-        return;
-    }
-
     for (int i = Q->front; i <= Q->rear; i++)
     {
-        printf("%d ", Q->A[i % Q->size]);
+        printf("%d ", Q->A[i]);
     }
     printf("\n");
 }
 
 void main()
 {
-    printf("Enter size of Q : ");
+    printf("Enter size of Q u want : ");
     int size;
     scanf("%d", &size);
-
     Queue *Q = createQ(size);
 
     EnQ(Q, 1);
     EnQ(Q, 2);
+    DeQ(Q);
     EnQ(Q, 3);
+    printf("%d \n", Peek(Q));
     EnQ(Q, 4);
-
-    PrintQ(Q);
-
     DeQ(Q);
+    EnQ(Q, 5);
+
+    PrintQ(Q);
     DeQ(Q);
 
-    PrintQ(Q);
-
-    EnQ(Q, 6);
-    EnQ(Q, 7);
-    EnQ(Q, 8);
-    EnQ(Q, 9);
-
-    PrintQ(Q);
-
-    printf("%d %d", front(Q), rear(Q));
+    printf("%d", Peek(Q));
 }

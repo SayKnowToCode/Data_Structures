@@ -81,43 +81,65 @@ int main()
 {
     node *root1 = NULL;
     node *root2 = NULL;
+    printf("Enter first tree \n");
     root1 = createTree();
     int A[size];
     size = 0;
-    root2 = createTree();
-    int B[size];
 
-    if (sizeof(A) != sizeof(B))
+    printf("Enter 1 for Mirror Image, 2 for Identical\n");
+    int choice;
+    scanf("%d", &choice);
+
+    switch (choice)
     {
-        printf("Trees cannot be mirror image as they differ in size");
-        return 0;
+    case 1:
+    {
+        printf("\n");
+        root1 = MirrorImage(root1);
+        printf("The mirror image of root1 is : ");
+        InOrder(root1, size, A);
+        k = 0;
+        break;
     }
 
-    printf("The first tree is : ");
-    InOrder(root1, size, A);
-    k = 0;
-
-    // printf("\n");
-    // root1 = MirrorImage(root1);
-    // printf("The mirror image of root1 is : ");
-    // InOrder(root1, size, A);
-    // k = 0;
-
-    printf("\n");
-    printf("The second tree is : ");
-    InOrder(root2, size, B);
-    k = 0;
-    printf("\n");
-
-    int i = 0, j = size - 1;
-    for (; i < size; i++, j--)
+    case 2:
     {
-        if (A[i] != B[j])
+        printf("Enter second tree \n");
+        root2 = createTree();
+        int B[size];
+
+        if (sizeof(A) != sizeof(B))
         {
-            printf("\nTrees are not mirror \n");
+            printf("Trees cannot be mirror image as they differ in size");
             return 0;
         }
+
+        printf("The first tree is : ");
+        InOrder(root1, size, A);
+        k = 0;
+
+        printf("\n");
+        printf("The second tree is : ");
+        InOrder(root2, size, B);
+        k = 0;
+        printf("\n");
+
+        int i = 0, j = size - 1;
+        for (; i < size; i++, j--)
+        {
+            if (A[i] != B[j])
+            {
+                printf("\nTrees are not mirror \n");
+                return 0;
+            }
+        }
+        printf("\nTrees are mirror");
+        break;
     }
-    printf("\nTrees are mirror");
+
+    default:
+        printf("Wrong input");
+    }
+
     return 0;
 }
